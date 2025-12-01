@@ -1,8 +1,7 @@
 flask
 flask-cors
 spotipy
-transformers
-torch
+textblob
 requests
 numpy
 python-dotenv
