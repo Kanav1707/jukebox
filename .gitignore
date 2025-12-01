@@ -12,7 +12,7 @@ node_modules/
 
 # Ignore build and distribution files
 dist/
-build/
+
 
 # Ignore environment files
 *.env

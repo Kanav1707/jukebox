@@ -1,6 +1,9 @@
 flask
+flask-cors
+spotipy
+transformers
+torch
 requests
 numpy
-torch              # For PyTorch models
-tensorflow         # For TensorFlow models
-python-dotenvpip 
+python-dotenv
+gunicorn

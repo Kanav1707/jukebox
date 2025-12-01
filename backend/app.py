@@ -5,12 +5,17 @@ import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 import random
 
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
 app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes
 
 # Spotify setup
-client_id = '64d63a5e8dc94fe7aded2c8175e64a0e'
-client_secret = '3277c839fb2345ff8707929e85452821'
+client_id = os.getenv('SPOTIPY_CLIENT_ID')
+client_secret = os.getenv('SPOTIPY_CLIENT_SECRET')
 sp = spotipy.Spotify(auth_manager=SpotifyClientCredentials(client_id=client_id, client_secret=client_secret))
 
 # Sentiment analysis pipeline
@@ -71,10 +76,12 @@ def fetch_spotify_recommendations(artist_name, sentiment):
         track_name = track['name']
         artist = track['artists'][0]['name']
         album_cover = track['album']['images'][0]['url']  # Get album cover
+        spotify_url = track['external_urls']['spotify']
         recommendations.append({
             'track_name': track_name,
             'artist_name': artist,
-            'album_cover': album_cover
+            'album_cover': album_cover,
+            'spotify_url': spotify_url
         })
 
     # Dynamic Spotify query based on sentiment
@@ -96,11 +103,13 @@ def fetch_spotify_recommendations(artist_name, sentiment):
         track_name = track['name']
         artist = track['artists'][0]['name']
         album_cover = track['album']['images'][0]['url']  # Get album cover
+        spotify_url = track['external_urls']['spotify']
         if artist.lower() != artist_name.lower():
             recommendations.append({
                 'track_name': track_name,
                 'artist_name': artist,
-                'album_cover': album_cover
+                'album_cover': album_cover,
+                'spotify_url': spotify_url
             })
 
     return recommendations
